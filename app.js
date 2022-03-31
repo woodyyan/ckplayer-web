@@ -27,6 +27,16 @@ app.get(`/ckplayer/css/images/loading.png`, (req, res) => {
   res.status(200).end();
 });
 
+app.get(`/ckplayer/css/images/ckplayer.png`, (req, res) => {
+  const image = path.join(__dirname, '/ckplayer/css/images/ckplayer.png');
+  const content = fs.readFileSync(image, {
+    encoding: 'base64',
+  });
+  res.set('Content-Type', 'image/png');
+  res.send(Buffer.from(content, 'base64'));
+  res.status(200).end();
+});
+
 app.get(`/ckplayer/js/ckplayer.min.js`, (req, res) => {
   const logo = path.join(__dirname, '/ckplayer/js/ckplayer.min.js');
   const content = fs.readFileSync(logo, {
@@ -45,24 +55,6 @@ app.get(`/ckplayer/css/ckplayer.css`, (req, res) => {
   res.set('Content-Type', 'text/css');
   res.send(content);
   res.status(200).end();
-});
-
-app.get('/user', (req, res) => {
-  res.send([
-    {
-      title: 'serverless framework',
-      link: 'https://serverless.com',
-    },
-  ]);
-});
-
-app.get('/user/:id', (req, res) => {
-  const id = req.params.id;
-  res.send({
-    id: id,
-    title: 'serverless framework',
-    link: 'https://serverless.com',
-  });
 });
 
 app.get('/404', (req, res) => {
